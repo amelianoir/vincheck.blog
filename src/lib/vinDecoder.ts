@@ -6,7 +6,7 @@ export interface VINInfo {
   valid: boolean;
 }
 
-const wmiCodes: { [key: string]: string } = {
+const worldManufacturerIdentifierRegions: { [key: string]: string } = {
   '1': 'United States',
   '2': 'Canada',
   '3': 'Mexico',
@@ -21,7 +21,7 @@ const wmiCodes: { [key: string]: string } = {
   'Z': 'Italy',
 };
 
-const manufacturers: { [key: string]: string } = {
+const manufacturersByWMICode: { [key: string]: string } = {
   '1FA': 'Ford (USA)',
   '1G': 'General Motors',
   '1HG': 'Honda (USA)',
@@ -50,17 +50,17 @@ const manufacturers: { [key: string]: string } = {
   'ZFF': 'Ferrari',
 };
 
-const yearCodes: { [key: string]: string } = {
+const modelYearByCode: { [key: string]: string } = {
   'A': '2010', 'B': '2011', 'C': '2012', 'D': '2013', 'E': '2014',
   'F': '2015', 'G': '2016', 'H': '2017', 'J': '2018', 'K': '2019',
   'L': '2020', 'M': '2021', 'N': '2022', 'P': '2023', 'R': '2024',
   'S': '2025', 'T': '2026',
 };
 
-export function decodeVIN(vin: string): VINInfo {
-  vin = vin.toUpperCase().replace(/[^A-HJ-NPR-Z0-9]/g, '');
+export function decodeVIN(vinInput: string): VINInfo {
+  const sanitizedVin = vinInput.toUpperCase().replace(/[^A-HJ-NPR-Z0-9]/g, '');
   
-  if (vin.length !== 17) {
+  if (sanitizedVin.length !== 17) {
     return {
       manufacturer: 'Unknown',
       region: 'Unknown',
@@ -69,24 +69,25 @@ export function decodeVIN(vin: string): VINInfo {
     };
   }
 
-  const wmi = vin.substring(0, 3);
-  const yearCode = vin.charAt(9);
+  const worldManufacturerIdentifier = sanitizedVin.substring(0, 3);
+  const modelYearCode = sanitizedVin.charAt(9);
   
-  let manufacturer = 'Unknown';
-  for (const [code, name] of Object.entries(manufacturers)) {
-    if (wmi.startsWith(code)) {
-      manufacturer = name;
+  let manufacturerName = 'Unknown';
+  for (const [manufacturerCode, manufacturerDescription] of Object.entries(manufacturersByWMICode)) {
+    if (worldManufacturerIdentifier.startsWith(manufacturerCode)) {
+      manufacturerName = manufacturerDescription;
       break;
     }
   }
 
-  const region = wmiCodes[vin.charAt(0)] || 'Unknown';
-  const year = yearCodes[yearCode] || 'Unknown';
+  const regionCode = sanitizedVin.charAt(0);
+  const manufacturingRegion = worldManufacturerIdentifierRegions[regionCode] || 'Unknown';
+  const modelYear = modelYearByCode[modelYearCode] || 'Unknown';
 
   return {
-    manufacturer,
-    region,
-    year,
+    manufacturer: manufacturerName,
+    region: manufacturingRegion,
+    year: modelYear,
     valid: true,
   };
 }

@@ -4,41 +4,41 @@ import { useState } from 'react';
 import { decodeVIN, VINInfo } from '@/lib/vinDecoder';
 
 export default function VinInput() {
-  const [vin, setVin] = useState('');
-  const [error, setError] = useState('');
-  const [decoded, setDecoded] = useState<VINInfo | null>(null);
+  const [vinNumber, setVinNumber] = useState('');
+  const [validationError, setValidationError] = useState('');
+  const [decodedVinInfo, setDecodedVinInfo] = useState<VINInfo | null>(null);
 
-  const handleVinChange = (value: string) => {
-    const upperVin = value.toUpperCase();
-    setVin(upperVin);
-    setError('');
+  const handleVinChange = (inputValue: string) => {
+    const uppercaseVin = inputValue.toUpperCase();
+    setVinNumber(uppercaseVin);
+    setValidationError('');
     
-    if (upperVin.length === 17) {
-      const info = decodeVIN(upperVin);
-      if (info.valid) {
-        setDecoded(info);
+    if (uppercaseVin.length === 17) {
+      const vinDecodingResult = decodeVIN(uppercaseVin);
+      if (vinDecodingResult.valid) {
+        setDecodedVinInfo(vinDecodingResult);
       } else {
-        setError('Invalid VIN format');
-        setDecoded(null);
+        setValidationError('Invalid VIN format');
+        setDecodedVinInfo(null);
       }
     } else {
-      setDecoded(null);
+      setDecodedVinInfo(null);
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (vin.length !== 17) {
-      setError('VIN must be exactly 17 characters.');
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    if (vinNumber.length !== 17) {
+      setValidationError('VIN must be exactly 17 characters.');
       return;
     }
-    setError('');
+    setValidationError('');
     
     // Redirect to EpicVIN with affiliate ID and VIN
-    const affiliateId = '0xhataau2iwvr';
-    const targetUrl = `https://epicvin.com/check-vin?vin=${vin}&a_aid=${affiliateId}`;
+    const epicVinAffiliateId = '0xhataau2iwvr';
+    const epicVinCheckUrl = `https://epicvin.com/check-vin?vin=${vinNumber}&a_aid=${epicVinAffiliateId}`;
     
-    window.location.href = targetUrl;
+    window.location.href = epicVinCheckUrl;
   };
 
   return (
@@ -48,8 +48,8 @@ export default function VinInput() {
         <div className="relative flex items-center bg-gray-900 rounded-lg p-2 border border-gray-700">
           <input
             type="text"
-            value={vin}
-            onChange={(e) => handleVinChange(e.target.value)}
+            value={vinNumber}
+            onChange={(changeEvent) => handleVinChange(changeEvent.target.value)}
             placeholder="ENTER VIN NUMBER"
             className="flex-grow bg-transparent text-white px-4 py-3 outline-none font-mono tracking-wider text-lg placeholder-gray-500 w-full"
             maxLength={17}
@@ -63,9 +63,9 @@ export default function VinInput() {
         </div>
       </form>
       
-      {error && <p className="text-red-400 mt-2 text-center text-sm">{error}</p>}
+      {validationError && <p className="text-red-400 mt-2 text-center text-sm">{validationError}</p>}
       
-      {decoded && decoded.valid && (
+      {decodedVinInfo && decodedVinInfo.valid && (
         <div className="mt-6 p-6 bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl border border-green-500/30 shadow-xl">
           <div className="flex items-center gap-2 mb-4">
             <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
@@ -76,15 +76,15 @@ export default function VinInput() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="bg-gray-800/50 p-4 rounded-lg">
               <p className="text-gray-400 text-xs mb-1">Manufacturer</p>
-              <p className="text-white font-bold">{decoded.manufacturer}</p>
+              <p className="text-white font-bold">{decodedVinInfo.manufacturer}</p>
             </div>
             <div className="bg-gray-800/50 p-4 rounded-lg">
               <p className="text-gray-400 text-xs mb-1">Region</p>
-              <p className="text-white font-bold">{decoded.region}</p>
+              <p className="text-white font-bold">{decodedVinInfo.region}</p>
             </div>
             <div className="bg-gray-800/50 p-4 rounded-lg">
               <p className="text-gray-400 text-xs mb-1">Model Year</p>
-              <p className="text-white font-bold">{decoded.year}</p>
+              <p className="text-white font-bold">{decodedVinInfo.year}</p>
             </div>
           </div>
           <div className="mt-4 p-4 bg-blue-900/20 border border-blue-500/30 rounded-lg">
