@@ -1,6 +1,6 @@
 import VinInput from "@/components/VinInput";
 import AdSenseBlock from "@/components/AdSenseBlock";
-import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -17,7 +17,7 @@ export default function Home() {
           VINCheck<span className="text-blue-500">.blog</span>
         </div>
         <nav className="hidden md:flex gap-6 text-sm font-medium text-gray-400">
-          <a href="/blog" className="hover:text-white transition">Blog</a>
+          <Link href="/blog" className="hover:text-white transition">Blog</Link>
           <a href="#" className="hover:text-white transition">Pricing</a>
           <a href="#" className="hover:text-white transition">Sample Report</a>
           <a href="#" className="hover:text-white transition">Contact</a>
@@ -132,11 +132,11 @@ export default function Home() {
             <div className="space-y-4">
                 <div className="p-6 bg-gray-900/30 rounded-lg border border-gray-800">
                     <h4 className="font-bold text-white mb-2">Is the VIN Check free?</h4>
-                    <p className="text-gray-400 text-sm">We provide a free initial VIN decode to verify the vehicle's make, model, and year. The full history report with accident data is a paid service from our trusted partners.</p>
+                    <p className="text-gray-400 text-sm">We provide a free initial VIN decode to verify the vehicle&apos;s make, model, and year. The full history report with accident data is a paid service from our trusted partners.</p>
                 </div>
                 <div className="p-6 bg-gray-900/30 rounded-lg border border-gray-800">
                     <h4 className="font-bold text-white mb-2">Where can I find my VIN?</h4>
-                    <p className="text-gray-400 text-sm">The VIN is typically found on the driver's side dashboard (visible through the windshield) or on the driver's side door jamb.</p>
+                    <p className="text-gray-400 text-sm">The VIN is typically found on the driver&apos;s side dashboard (visible through the windshield) or on the driver&apos;s side door jamb.</p>
                 </div>
                 <div className="p-6 bg-gray-900/30 rounded-lg border border-gray-800">
                     <h4 className="font-bold text-white mb-2">Does this work for European cars?</h4>
@@ -172,26 +172,26 @@ export default function Home() {
             <div>
                 <h4 className="text-white font-bold mb-4">Global VIN Checks</h4>
                 <ul className="space-y-2 text-sm text-gray-500">
-                    <li><a href="/global/germany" className="hover:text-blue-400">VIN Check Germany</a></li>
-                    <li><a href="/global/uk" className="hover:text-blue-400">VIN Check UK</a></li>
-                    <li><a href="/global/australia" className="hover:text-blue-400">VIN Check Australia</a></li>
-                    <li><a href="/global/canada" className="hover:text-blue-400">VIN Check Canada</a></li>
+                    <li><Link href="/global/germany" className="hover:text-blue-400">VIN Check Germany</Link></li>
+                    <li><Link href="/global/uk" className="hover:text-blue-400">VIN Check UK</Link></li>
+                    <li><Link href="/global/australia" className="hover:text-blue-400">VIN Check Australia</Link></li>
+                    <li><Link href="/global/canada" className="hover:text-blue-400">VIN Check Canada</Link></li>
                 </ul>
             </div>
             <div>
                 <h4 className="text-white font-bold mb-4">Nordic Region</h4>
                 <ul className="space-y-2 text-sm text-gray-500">
-                    <li><a href="/global/denmark" className="hover:text-blue-400">VIN Check Denmark</a></li>
-                    <li><a href="/global/norway" className="hover:text-blue-400">VIN Check Norway</a></li>
-                    <li><a href="/global/sweden" className="hover:text-blue-400">VIN Check Sweden</a></li>
+                    <li><Link href="/global/denmark" className="hover:text-blue-400">VIN Check Denmark</Link></li>
+                    <li><Link href="/global/norway" className="hover:text-blue-400">VIN Check Norway</Link></li>
+                    <li><Link href="/global/sweden" className="hover:text-blue-400">VIN Check Sweden</Link></li>
                 </ul>
             </div>
              <div>
                 <h4 className="text-white font-bold mb-4">Brands</h4>
                 <ul className="space-y-2 text-sm text-gray-500">
-                    <li><a href="/vin-check/bmw" className="hover:text-blue-400">BMW VIN Decoder</a></li>
-                    <li><a href="/vin-check/mercedes-benz" className="hover:text-blue-400">Mercedes VIN Decoder</a></li>
-                    <li><a href="/vin-check/toyota" className="hover:text-blue-400">Toyota VIN Decoder</a></li>
+                    <li><Link href="/vin-check/bmw" className="hover:text-blue-400">BMW VIN Decoder</Link></li>
+                    <li><Link href="/vin-check/mercedes-benz" className="hover:text-blue-400">Mercedes VIN Decoder</Link></li>
+                    <li><Link href="/vin-check/toyota" className="hover:text-blue-400">Toyota VIN Decoder</Link></li>
                 </ul>
             </div>
             <div>
