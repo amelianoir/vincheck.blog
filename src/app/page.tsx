@@ -236,6 +236,9 @@ export default function Home() {
         <div className="text-center text-gray-600 text-sm">
              &copy; {new Date().getFullYear()} Vincheck.blog. All rights reserved.
         </div>
+        <div className="text-center text-gray-800 text-xs mt-2 hover:text-orange-500 transition-colors cursor-help" title="Try entering EASTEREGG1234567X in the VIN checker!">
+             🥚 Psst... Easter eggs hidden here 🔍
+        </div>
       </footer>
     </div>
   );

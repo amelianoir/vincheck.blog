@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import CookieConsent from "@/components/CookieConsent";
+import KonamiCode from "@/components/KonamiCode";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -107,6 +108,7 @@ export default function RootLayout({
       >
         {children}
         <CookieConsent />
+        <KonamiCode />
       </body>
     </html>
   );
