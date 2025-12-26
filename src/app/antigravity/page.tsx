@@ -88,7 +88,7 @@ export default function AntigravityPage() {
       </div>
 
       {/* Floating particles */}
-      <div className="fixed inset-0 pointer-events-none -z-5">
+      <div className="fixed inset-0 pointer-events-none z-0">
         <div className="absolute top-20 left-10 text-2xl animate-float-slow opacity-30">🚙</div>
         <div className="absolute top-40 right-20 text-3xl animate-float-slower opacity-20">🚗</div>
         <div className="absolute bottom-32 left-1/4 text-2xl animate-float-fast opacity-25">🏎️</div>
