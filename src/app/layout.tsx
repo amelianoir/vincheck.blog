@@ -15,10 +15,29 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Free VIN Check & Vehicle History Report | VinCheck.blog",
+  metadataBase: new URL('https://vincheck.blog'),
+  title: {
+    default: "Free VIN Check & Vehicle History Report | VinCheck.blog",
+    template: "%s | VinCheck.blog",
+  },
   description: "Check any VIN number for free. Get vehicle history reports, accident data, theft records, and mileage rollbacks. Trusted by millions.",
+  keywords: ["VIN check", "vehicle history", "car report", "VIN decoder", "accident history", "theft check"],
+  authors: [{ name: "VinCheck.blog" }],
+  creator: "VinCheck.blog",
+  publisher: "VinCheck.blog",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   icons: {
-    icon: '/favicon.ico', // standard Next.js favicon
+    icon: '/favicon.ico',
   },
   openGraph: {
     title: "Free VIN Check & Vehicle History Report",
@@ -26,6 +45,14 @@ export const metadata: Metadata = {
     url: 'https://vincheck.blog',
     siteName: 'VinCheck.blog',
     type: 'website',
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@vincheckblog',
+  },
+  verification: {
+    google: 'your-google-verification-code',
   },
 };
 
@@ -37,14 +64,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Google AdSense - Replace client ID with your own */}
+        {/* Google AdSense */}
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4945576098147797"
           crossOrigin="anonymous"
           strategy="lazyOnload"
         />
-        {/* Google Analytics - Replace G-XXXXXXXXXX with your Measurement ID */}
+        {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-X118BW3G4H"
           strategy="afterInteractive"
@@ -55,6 +82,23 @@ export default function RootLayout({
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-X118BW3G4H');
+          `}
+        </Script>
+        {/* JSON-LD Structured Data */}
+        <Script id="schema-org" type="application/ld+json" strategy="afterInteractive">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "VinCheck.blog",
+              "url": "https://vincheck.blog",
+              "description": "Free VIN check and vehicle history reports",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://vincheck.blog/vin-check?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            }
           `}
         </Script>
       </head>

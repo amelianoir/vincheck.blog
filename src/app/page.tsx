@@ -1,6 +1,36 @@
 import VinInput from "@/components/VinInput";
 import AdSenseBlock from "@/components/AdSenseBlock";
 import Link from "next/link";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Free VIN Check & Vehicle History Report | VinCheck.blog",
+  description: "Check any VIN number for free. Get instant vehicle history reports with accident data, theft records, mileage rollbacks, and title brands. Trusted by millions of car buyers worldwide.",
+  keywords: "VIN check, vehicle history report, car history, VIN decoder, free VIN check, accident history, theft check, mileage rollback, title check",
+  openGraph: {
+    title: "Free VIN Check & Vehicle History Report",
+    description: "Reveal the hidden history of any car instantly. Check for accidents, theft, and more.",
+    url: "https://vincheck.blog",
+    siteName: "VinCheck.blog",
+    type: "website",
+    images: [
+      {
+        url: "https://vincheck.blog/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "VinCheck.blog - Free Vehicle History Reports",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Free VIN Check & Vehicle History Report",
+    description: "Check any VIN for accidents, theft records, and mileage rollbacks.",
+  },
+  alternates: {
+    canonical: "https://vincheck.blog",
+  },
+};
 
 export default function Home() {
   return (
@@ -18,9 +48,9 @@ export default function Home() {
         </div>
         <nav className="hidden md:flex gap-6 text-sm font-medium text-gray-400">
           <Link href="/blog" className="hover:text-white transition">Blog</Link>
-          <a href="#" className="hover:text-white transition">Pricing</a>
-          <a href="#" className="hover:text-white transition">Sample Report</a>
-          <a href="#" className="hover:text-white transition">Contact</a>
+          <a href="https://epicvin.com?a_aid=0xhataau2iwvr" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Get Report</a>
+          <Link href="/vin-check/bmw" className="hover:text-white transition">By Brand</Link>
+          <Link href="/global/germany" className="hover:text-white transition">By Country</Link>
         </nav>
       </header>
 
@@ -179,11 +209,12 @@ export default function Home() {
                 </ul>
             </div>
             <div>
-                <h4 className="text-white font-bold mb-4">Nordic Region</h4>
+                <h4 className="text-white font-bold mb-4">European Region</h4>
                 <ul className="space-y-2 text-sm text-gray-500">
                     <li><Link href="/global/denmark" className="hover:text-blue-400">VIN Check Denmark</Link></li>
                     <li><Link href="/global/norway" className="hover:text-blue-400">VIN Check Norway</Link></li>
-                    <li><Link href="/global/sweden" className="hover:text-blue-400">VIN Check Sweden</Link></li>
+                    <li><Link href="/global/france" className="hover:text-blue-400">VIN Check France</Link></li>
+                    <li><Link href="/global/new-zealand" className="hover:text-blue-400">VIN Check New Zealand</Link></li>
                 </ul>
             </div>
              <div>
@@ -195,10 +226,10 @@ export default function Home() {
                 </ul>
             </div>
             <div>
-                 <h4 className="text-white font-bold mb-4">Legal</h4>
+                 <h4 className="text-white font-bold mb-4">Resources</h4>
                  <ul className="space-y-2 text-sm text-gray-500">
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
+                    <li><Link href="/blog" className="hover:text-blue-400">Blog</Link></li>
+                    <li><a href="https://epicvin.com?a_aid=0xhataau2iwvr" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400">Full VIN Report</a></li>
                  </ul>
             </div>
         </div>
