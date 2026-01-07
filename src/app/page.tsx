@@ -56,6 +56,9 @@ export default function Home() {
 
       {/* Hero Section */}
       <main className="flex-grow w-full max-w-7xl px-6 flex flex-col items-center justify-center text-center py-20">
+        <div className="inline-block px-4 py-2 mb-4 rounded-full bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border border-blue-400/30 text-blue-300 text-sm font-medium">
+          👋 Hello! Welcome to VinCheck.blog
+        </div>
         <div className="inline-block px-4 py-1.5 mb-6 rounded-full bg-blue-900/30 border border-blue-500/30 text-blue-400 text-xs font-semibold tracking-wide uppercase">
           Trusted by 1M+ Users Globally
         </div>
