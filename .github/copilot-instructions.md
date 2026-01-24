@@ -6,16 +6,13 @@ A Next.js 15 static site (`output: 'export'`) for VIN checking, vehicle history,
 ## Code Standards
 
 ### Required Before Each Commit
-- Run `npm run lint` to check for linting errors before committing any changes
+- Run `npm run lint` to check for linting errors before committing any changes (even though `next.config.ts` sets `ignoreDuringBuilds: true` for performance; linting is enforced as a local/CI quality check rather than during `next build`)
 - Ensure TypeScript type checking passes with `npx tsc --noEmit`
 - Verify the build completes successfully with `npm run build`
 
 ### Development Flow
-- **Dev Server**: `npm run dev` - Start development server on localhost:3000
-- **Build**: `npm run build` - Generate static export to `/out` directory
-- **Lint**: `npm run lint` - Run ESLint on the codebase
-- **Type Check**: `npx tsc --noEmit` - Verify TypeScript types without emitting files
-- **Start**: `npm start` - Serve production build (after running build)
+Use the standard local loop of lint → type-check → dev server during feature work, and run the full build/start commands before deployment.
+See the **Development Workflow** section below for the exact commands and their usage.
 
 ### CI/CD Pipeline
 The repository uses GitHub Actions for continuous deployment:
