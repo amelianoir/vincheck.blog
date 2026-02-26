@@ -3,6 +3,39 @@
 ## Project Overview
 A Next.js 15 static site (`output: 'export'`) for VIN checking, vehicle history, and automotive blog content. Uses App Router with TypeScript, TailwindCSS, and affiliate monetization via EpicVIN/VinCheckUp.
 
+## Code Standards
+
+### Required Before Each Commit
+- Run `npm run lint` to check for linting errors before committing any changes (even though `next.config.ts` sets `ignoreDuringBuilds: true` for performance; linting is enforced as a local/CI quality check rather than during `next build`)
+- Ensure TypeScript type checking passes with `npx tsc --noEmit`
+- Verify the build completes successfully with `npm run build`
+
+### Development Flow
+Use the standard local loop of lint → type-check → dev server during feature work, and run the full build/start commands before deployment.
+See the **Development Workflow** section below for the exact commands and their usage.
+
+### CI/CD Pipeline
+The repository uses GitHub Actions for continuous deployment:
+- **Workflow**: `.github/workflows/deploy.yml` triggers on push to `main` branch
+- **Process**: Install dependencies (`npm ci`) → Build (`npm run build`) → Deploy to VPS
+- **Output**: Static files from `/out` directory are deployed to production
+- **Important**: Always ensure `npm ci` and `npm run build` succeed before merging
+
+## Repository Structure
+- `src/app/`: Next.js App Router pages and route handlers
+  - `blog/[slug]/`: Dynamic blog post pages
+  - `vin-check/[slug]/`: Brand-specific VIN check pages
+  - `global/[slug]/`: Country-specific pages
+  - `antigravity/`, `secret-garage/`: Special feature pages
+- `src/components/`: Reusable React components (VinInput, CookieConsent, etc.)
+- `src/lib/`: Core TypeScript modules and data
+  - `blog.ts`: Blog post content array
+  - `brands.ts`: Car brand data array
+  - `countries.ts`: Country data array
+  - `vinDecoder.ts`: VIN decoding logic
+- `public/`: Static assets (images, favicons, etc.)
+- `.github/workflows/`: CI/CD pipeline definitions
+
 ## Architecture & Data Flow
 
 ### Static Generation Strategy
@@ -95,3 +128,25 @@ When adding VIN decoder features, validate against:
 - WMI prefix matching (first 3 chars)
 - Year code mapping (10th character)
 - Invalid character exclusion (I, O, Q)
+
+### Manual Testing Process
+Since this project does not have automated tests:
+1. **Run dev server**: `npm run dev` and manually test changes in browser
+2. **Test VIN validation**: Use the VIN input component with valid/invalid VINs
+3. **Verify static generation**: Run `npm run build` and check `/out` directory contents
+4. **Test all routes**: Ensure dynamic routes render correctly after build
+
+## Key Guidelines
+
+1. **Follow TypeScript best practices**: Use proper types, avoid `any`, leverage type inference
+2. **Maintain existing code structure**: Keep content in TypeScript arrays, not external files
+3. **Static site compatibility**: Never use server-side features (API routes, server actions, ISR)
+4. **Preserve affiliate tracking**: Always maintain EpicVIN (`a_aid=0xhataau2iwvr`) and VinCheckUp (`almanova`) IDs
+5. **Use Next.js 15 patterns**: 
+   - Always `await` route params (they are Promises in Next.js 15)
+   - Use App Router conventions (no Pages Router)
+6. **Image optimization**: Use standard `<img>` tags with `unoptimized: true` config (required for static export)
+7. **Dark theme consistency**: Follow established Tailwind classes (see Styling Conventions section)
+8. **Documentation**: Update inline comments for complex logic, especially in VIN decoder
+9. **Build validation**: Always run `npm run build` before finalizing changes to ensure static export works
+10. **Linting compliance**: Fix all ESLint errors/warnings before committing (uses flat config)
