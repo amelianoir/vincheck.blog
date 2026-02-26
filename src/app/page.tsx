@@ -1,5 +1,6 @@
 import VinInput from "@/components/VinInput";
 import AdSenseBlock from "@/components/AdSenseBlock";
+import { BannerMechanic, BannerVerticalLarge, RentalLink } from "@/components/AdBanners";
 import Link from "next/link";
 
 export default function Home() {
@@ -59,6 +60,16 @@ export default function Home() {
         {/* AdSense Block 1 - After VIN Input */}
         <div className="mt-12 w-full max-w-4xl">
           <AdSenseBlock slot="1234567890" />
+        </div>
+
+        {/* Mechanic affiliate banner */}
+        <div className="mt-8 w-full max-w-4xl">
+          <BannerMechanic />
+        </div>
+
+        {/* Rental affiliate */}
+        <div className="mt-6 w-full max-w-4xl">
+          <RentalLink />
         </div>
 
 
@@ -148,6 +159,11 @@ export default function Home() {
         {/* AdSense Block 2 - After FAQ */}
         <div className="mt-16 w-full max-w-4xl">
           <AdSenseBlock slot="0987654321" />
+        </div>
+
+        {/* Vertical banner */}
+        <div className="mt-8 w-full max-w-4xl">
+          <BannerVerticalLarge />
         </div>
 
 
