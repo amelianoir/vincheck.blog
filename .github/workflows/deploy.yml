@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy vincheck.blog
 
 on:
   push:
@@ -27,7 +27,30 @@ jobs:
     - name: Build Next.js
       run: npm run build
 
-    - name: Deploy to gh-pages branch
+    - name: Deploy via SSH to VPS
+      continue-on-error: true
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+        REMOTE_USER: ${{ secrets.REMOTE_USER }}
+      run: |
+        if [ -z "$SSH_PRIVATE_KEY" ] || [ -z "$REMOTE_HOST" ] || [ -z "$REMOTE_USER" ]; then
+          echo "SSH secrets not set, skipping SSH deploy"
+          exit 0
+        fi
+        mkdir -p ~/.ssh
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+        chmod 600 ~/.ssh/deploy_key
+        ssh-keyscan -H "$REMOTE_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+        ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no "$REMOTE_USER@$REMOTE_HOST" \
+          "rm -rf /home/vincheck.blog/public_html/* && mkdir -p /home/vincheck.blog/public_html"
+        rsync -avz --delete -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
+          out/ "$REMOTE_USER@$REMOTE_HOST:/home/vincheck.blog/public_html/"
+        ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no "$REMOTE_USER@$REMOTE_HOST" \
+          "chmod -R 755 /home/vincheck.blog/public_html"
+        echo "✅ SSH deployment complete"
+
+    - name: Deploy to gh-pages (fallback)
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
