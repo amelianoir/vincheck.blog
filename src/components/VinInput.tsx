@@ -34,6 +34,19 @@ export default function VinInput() {
     }
     setError('');
     
+    // Easter eggs for special VINs! 🎁
+    const secretVins: { [key: string]: string } = {
+      'EASTEREGG1234567X': '/antigravity',
+      '007007JAMESBOND7': '/secret-garage',
+      '1234567890XKCD353': '/antigravity',
+      'KONAMICODEISHERE': '/secret-garage',
+    };
+    
+    if (secretVins[vin]) {
+      window.location.href = secretVins[vin];
+      return;
+    }
+    
     // Redirect to EpicVIN with affiliate ID and VIN
     const affiliateId = '0xhataau2iwvr';
     const targetUrl = `https://epicvin.com/check-vin?vin=${vin}&a_aid=${affiliateId}`;
