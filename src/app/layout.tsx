@@ -53,9 +53,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@vincheckblog',
   },
-  verification: {
-    google: 'your-google-verification-code',
-  },
+  // verification: { google: 'ADD_YOUR_GSC_CODE_HERE' },
 };
 
 export default function RootLayout({
